@@ -24,5 +24,16 @@
 else
 {
     <p>Share this result with the person that's verifying you're not a robot:</p>
-    <input class="form-control" value="@Model.ProtectedChallenge" readonly="readonly">
+    <div class="input-group mb-3">
+    <input class="form-control protected-challenge-input" value="@Model.ProtectedChallenge" readonly="readonly">
+        <div class="input-group-append">
+            <button 
+                class="btn btn-outline-secondary copy-input" 
+                data-copy-target=".protected-challenge-input"
+                type="button" 
+                aria-title="Copy">
+                <i class="bi bi-clipboard"></i>
+            </button>
+        </div>
+    </div>
 }

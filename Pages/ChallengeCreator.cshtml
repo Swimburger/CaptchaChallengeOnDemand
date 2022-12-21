@@ -18,7 +18,20 @@
 else
 {
     <p>Share this URL with the person you are challenging:</p>
-    <input class="form-control" readonly="readonly" value="@Model.ChallengeUrl"/>
+    <div class="input-group mb-3">
+        <input class="form-control challenge-url-input" readonly="readonly" value="@Model.ChallengeUrl"/>
+        <div class="input-group-append">
+            <button 
+                class="btn btn-outline-secondary copy-input" 
+                data-copy-target=".challenge-url-input"
+                type="button" 
+                aria-title="Copy">
+                <i class="bi bi-clipboard"></i>
+            </button>
+        </div>
+    </div>
+
+
     <p>
         Then verify the result here using the unique challenge verification URL (ID: (@Model.ChallengeId)):
     </p>
