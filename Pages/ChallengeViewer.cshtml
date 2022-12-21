@@ -1,0 +1,54 @@
+﻿@page
+@model ChallengeViewerModel
+@{
+    ViewData["Title"] = "reCaptcha Challenge Viewer";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (!Model.ShowTable)
+{
+    <form method="POST">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="ProtectedChallenge">Challenge Result</label>
+            <input asp-for="ProtectedChallenge" class="form-control" aria-describedby="challengeResultHelp" required="required">
+            <small id="challengeResultHelp" class="form-text text-muted">Enter the challenge result shared by the person that you're challenging.</small>
+        </div>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+}
+else
+{
+    var idMatches = Model.ChallengeId == Model.ChallengeResult.Id;
+    var challengeSolved = Model.ChallengeResult.Solved;
+    <table class="table">
+        <tr class="@(idMatches ? "bg-success" : "bg-danger") text-white">
+            <th>ID</th>
+            <td>
+                @if (idMatches)
+                {
+                    <text>Challenge IDs match</text>
+                }
+                else
+                {
+                    <text>
+                        Challenge IDs do not match.
+                        The challenge result you are viewing is not the same as the challenge you created.
+                    </text>
+                }
+            </td>
+        </tr>
+        <tr class="@(idMatches ? "bg-success" : "bg-danger") text-white">
+            <th>reCaptcha challenge</th>
+            <td>
+                @(challengeSolved ? "Solved" : "Failed")
+            </td>
+        </tr>
+        <tr>
+            <th>reCaptcha solved at</th>
+            <td>
+                @Model.ChallengeResult.TimeStamp.LocalDateTime.ToString("G")
+            </td>
+        </tr>
+    </table>
+}

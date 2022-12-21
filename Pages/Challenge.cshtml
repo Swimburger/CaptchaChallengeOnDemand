@@ -1,0 +1,28 @@
+﻿@page
+@model ChallengeModel
+@{
+    ViewData["Title"] = "reCaptcha Challenge";
+}
+
+@section Head{
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@if (string.IsNullOrEmpty(Model.ProtectedChallenge))
+{
+    <p>Proof that you're not a robot by solving this reCatpcha.</p>
+    <form method="POST">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="g-recaptcha" data-sitekey="@Model.RecaptchaSiteKey"></div>
+        <br/>
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+}
+else
+{
+    <p>Share this result with the person that's verifying you're not a robot:</p>
+    <input class="form-control" value="@Model.ProtectedChallenge" readonly="readonly">
+}

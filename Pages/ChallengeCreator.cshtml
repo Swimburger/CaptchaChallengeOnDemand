@@ -1,0 +1,26 @@
+﻿@page "/"
+@model ChallengeCreatorModel
+@{
+    ViewData["Title"] = "Create a reCaptcha Challenge";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@if (string.IsNullOrEmpty(Model.ChallengeUrl))
+{
+    <p>Create a new reCaptcha Challenge:</p>
+    <form method="POST">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="submit" value="Request reCaptcha Challenge" class="btn btn-primary">
+    </form>
+}
+else
+{
+    <p>Share this URL with the person you are challenging:</p>
+    <input class="form-control" readonly="readonly" value="@Model.ChallengeUrl"/>
+    <p>
+        Then verify the result here using the unique challenge verification URL (ID: (@Model.ChallengeId)):
+    </p>
+    <a href="@Url.Page("ChallengeViewer", new {id = Model.ChallengeId})" class="btn btn-primary">Verify result</a>
+}
